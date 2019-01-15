@@ -15,5 +15,5 @@ I modified GTNEIOrePlugin for my modpack. I add support for latest GT6. You may 
 
 Copyright (c) 2019 Monatann All rights researved.
 
-Oridinal NEI Author Copyright (c) 2016 GWYOG Released under the MIT license
+Oridinal GTNEIOrePlugin Author Copyright (c) 2016 GWYOG Released under the MIT license
 https://github.com/GWYOG/GTNEIOrePlugin/blob/master/LICENSE
