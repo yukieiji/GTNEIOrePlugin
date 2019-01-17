@@ -1,19 +1,20 @@
-# GT6 NEI Ore Plugin Unofficial
-This minecraft forge mod is an addon for GregTech6 and NEI and is a client-side mod.
+# GTNEIOrePlugin
+## 日本語  
+GregTech6の鉱石生成をNEIで見れるGregTech6のアドオンです  
+Greg6.07以降への対応と以下の目標を立てて目指して開発しています  
+* GregTech6の鉱脈の生成率などをNEIで見れるようにする  
+* GregTech6の小さな鉱石の生成率もNEIで見れるようにする  
+* GregTech6の層として生成される鉱脈もNEIで見れるようにする    
+  
+_Java初心者のため、まだビルドして動作することできません(開発にご協力ください)_
 
-It adds several NEI plugins for GT6 which shows the detailed information of GregTech's ore generation.
-These plugins are:
-* Plugin for vein generation (GT6)
+## English
+A minecraft forge mod which adds NEI plugins to show detailed information of GregTech6's ore-generation.  
+It adds several NEI plugins for GT6.07(Higher) which shows the detailed information of GregTech's ore generation.  
+These plugins are
+* Plugin for vein generation (GT6) (Not yet.)  
+* Plugin for small ore generation (GT6) (Not yet.)  
+* Plugin for vein as layer generation (GT6) (Not yet.)  
+  
+_I'm Java beginner, You can not build it and work (Please help development)_  
 
-
-### Build
-If you want a bleeding-edge version of this mod, you can simply download or clone this repository, establish a folder named "libs" and put the dev builds of suitable version of NEI(e.g. 1.0.5.120-dev) and GT6(latest version) in the folder.
-Then you can build this mod in the same way as building other mods. i.e. run "gradlew build" command in the CMD window. Then the build can be found in "./build/libs/" folder.
-
-### License
-I modified GTNEIOrePlugin for my modpack. I add support for latest GT6. You may NOT re-upload my files without my permission because I don't like to be caught in troubles.
-
-Copyright (c) 2019 Monatann All rights researved.
-
-Oridinal GTNEIOrePlugin Author Copyright (c) 2016 GWYOG Released under the MIT license
-https://github.com/GWYOG/GTNEIOrePlugin/blob/master/LICENSE
