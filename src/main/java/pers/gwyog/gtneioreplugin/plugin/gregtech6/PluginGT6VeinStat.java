@@ -5,10 +5,7 @@ import java.util.List;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe;
-import gregapi.block.IBlockPlacable;
 import gregapi.block.prefixblock.PrefixBlock;
-import gregapi.data.CS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -23,7 +20,7 @@ public class PluginGT6VeinStat extends PluginGT6Base {
         public PositionedStack positionedStackSecondary;
         public PositionedStack positionedStackBetween;
         public PositionedStack positionedStackSporadic;
-            
+
         public CachedVeinStatRecipe(String veinName, List<ItemStack> stackListPrimary, List<ItemStack> stackListSecondary,
                 List<ItemStack> stackListBetween, List<ItemStack> stackListSporadic) {
             this.veinName = veinName;
@@ -32,7 +29,7 @@ public class PluginGT6VeinStat extends PluginGT6Base {
             positionedStackBetween = new PositionedStack(stackListBetween, 42, 0);
             positionedStackSporadic = new PositionedStack(stackListSporadic, 62, 0);
         }
-        
+
         @Override
         public List<PositionedStack> getIngredients() {
             List<PositionedStack> ingredientsList = new ArrayList<PositionedStack>();
@@ -46,14 +43,14 @@ public class PluginGT6VeinStat extends PluginGT6Base {
             ingredientsList.add(positionedStackSporadic);
             return ingredientsList;
         }
-        
+
         @Override
         public PositionedStack getResult() {
             return null;
         }
-        
+
     }
-    
+
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(getOutputId())) {
@@ -69,14 +66,14 @@ public class PluginGT6VeinStat extends PluginGT6Base {
                     stackListSecondary.add(new ItemStack(prefixBlock, 1, oreLayerWrapper.secondaryMeta));
                     stackListBetween.add(new ItemStack(prefixBlock, 1, oreLayerWrapper.betweenMeta));
                     stackListSporadic.add(new ItemStack(prefixBlock, 1, oreLayerWrapper.sporadicMeta));
-                }  
+                }
                 this.arecipes.add(new CachedVeinStatRecipe(veinName, stackListPrimary, stackListSecondary, stackListBetween, stackListSporadic));
             }
         }
         else
             super.loadCraftingRecipes(outputId, results);
     }
-    
+
     @Override
     public void loadCraftingRecipes(ItemStack stack) {
         String unlocalizedName = stack.getUnlocalizedName();
@@ -101,30 +98,30 @@ public class PluginGT6VeinStat extends PluginGT6Base {
         else
             super.loadCraftingRecipes(stack);
     }
-    
+
     @Override
     public void drawExtras(int recipe) {
         CachedVeinStatRecipe crecipe = (CachedVeinStatRecipe) this.arecipes.get(recipe);
         OreLayerWrapper oreLayer = GT6OreLayerHelper.mapOreLayerWrapper.get(crecipe.veinName);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.veinName") + ": " + getLocalizedVeinName(oreLayer.veinName), 2, 18, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.primaryOre") + ": " + getLocalizedOreName(oreLayer.primaryMeta), 2, 31, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.secondaryOre") + ": " + getLocalizedOreName(oreLayer.secondaryMeta), 2, 44, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.betweenOre") + ": " + getLocalizedOreName(oreLayer.betweenMeta), 2, 57, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.sporadicOre") + ": " + getLocalizedOreName(oreLayer.sporadicMeta), 2, 70, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.veinName") + ": " + getLocalizedVeinName(oreLayer.veinName).substring(31,32).toUpperCase() + getLocalizedVeinName(oreLayer.veinName).substring(32,getLocalizedVeinName(oreLayer.veinName).length() - 5), 2, 18, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.primaryOre") + ": " + oreLayer.primaryMetaName, 2, 31, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.secondaryOre") + ": " + oreLayer.secondaryMetaName, 2, 44, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.betweenOre") + ": " + oreLayer.betweenMetaName, 2, 57, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.sporadicOre") + ": " + oreLayer.sporadicMetaName, 2, 70, 0x404040, false);
         GuiDraw.drawString(I18n.format("gtnop.gui.nei.genHeight") + ": " + oreLayer.worldGenHeightRange, 2, 83, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.worldNames") + ": " + getWorldNameTranslated(oreLayer.genOverworld, oreLayer.genNether, oreLayer.genEnd, false, false), 2, 96, 0x404040, false);
-        GuiDraw.drawString(I18n.format("gtnop.gui.nei.weightedChance") + ": " + getWeightedChance(oreLayer.randomWeight, oreLayer.genOverworld, oreLayer.genNether, oreLayer.genEnd), 2, 109, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.worldNames") + ": " + getWorldNameTranslated(oreLayer.genOverworld, oreLayer.genNether, oreLayer.genEnd, oreLayer.genGt, oreLayer.genPfaa, oreLayer.genMoon, oreLayer.genMars, oreLayer.genTwilight, oreLayer.genErebus, oreLayer.genBetweenlands, oreLayer.genAtum, oreLayer.genEnvm, oreLayer.genDeepdark, oreLayer.genAether, oreLayer.genPlanets, oreLayer.genAsteroids, false, false), 2, 96, 0x404040, false);
+        GuiDraw.drawString(I18n.format("gtnop.gui.nei.weightedChance") + ": " + getWeightedChance(oreLayer.randomWeight, oreLayer.genOverworld, oreLayer.genNether, oreLayer.genEnd, oreLayer.genGt, oreLayer.genPfaa, oreLayer.genMoon, oreLayer.genMars, oreLayer.genTwilight, oreLayer.genErebus, oreLayer.genBetweenlands, oreLayer.genAtum, oreLayer.genEnvm, oreLayer.genDeepdark, oreLayer.genAether, oreLayer.genPlanets, oreLayer.genAsteroids), 2, 109, 0x404040, false);
         GuiDraw.drawStringR(EnumChatFormatting.BOLD + I18n.format("gtnop.gui.nei.seeAll"), getGuiWidth()-3, 5, 0x404040, false);
     }
-    
+
     public String getLocalizedVeinName(String unlocalizedName) {
         if (unlocalizedName.startsWith("ore.mix.custom."))
             return I18n.format("gtnop.ore.custom.name") + I18n.format("gtnop.ore.vein.name") + unlocalizedName.substring(15);
         else
             return I18n.format("gtnop." + unlocalizedName) + I18n.format("gtnop.ore.vein.name");
     }
-    
-    public String getWeightedChance(int randomWeight, boolean genOverworld, boolean genNether, boolean genEnd) {
+
+    public String getWeightedChance(int randomWeight, boolean genOverworld, boolean genNether, boolean genEnd, boolean genGt, boolean genPfaa, boolean genMoon, boolean genMars, boolean genTwilight, boolean genErebus, boolean genBetweenlands, boolean genAtum, boolean genEnvm, boolean genDeepdark, boolean genAether, boolean genPlanets, boolean genAsteroids) {
         String weightedChance = "";
         if (genOverworld && GT6OreLayerHelper.weightPerWorld[0] != 0) {
             if (!weightedChance.isEmpty())
@@ -141,17 +138,77 @@ public class PluginGT6VeinStat extends PluginGT6Base {
                 weightedChance += ", ";
             weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[2]);
         }
+        if (genPfaa && GT6OreLayerHelper.weightPerWorld[3] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[3]);
+        }
+        if (genMoon && GT6OreLayerHelper.weightPerWorld[4] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[4]);
+        }
+        if (genMars && GT6OreLayerHelper.weightPerWorld[5] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[5]);
+        }
+        if (genTwilight && GT6OreLayerHelper.weightPerWorld[6] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[6]);
+        }
+        if (genErebus && GT6OreLayerHelper.weightPerWorld[7] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[7]);
+        }
+        if (genBetweenlands && GT6OreLayerHelper.weightPerWorld[8] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[8]);
+        }
+        if (genAtum && GT6OreLayerHelper.weightPerWorld[9] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[9]);
+        }
+        if (genEnvm && GT6OreLayerHelper.weightPerWorld[10] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[10]);
+        }
+        if (genDeepdark && GT6OreLayerHelper.weightPerWorld[11] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[11]);
+        }
+        if (genAether && GT6OreLayerHelper.weightPerWorld[12] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[12]);
+        }
+        if (genPlanets && GT6OreLayerHelper.weightPerWorld[13] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[13]);
+        }
+        if (genAsteroids && GT6OreLayerHelper.weightPerWorld[14] != 0) {
+            if (!weightedChance.isEmpty())
+                weightedChance += ", ";
+            weightedChance += String.format("%.2f%%", (100.0f*randomWeight)/GT6OreLayerHelper.weightPerWorld[14]);
+        }
         return weightedChance;
     }
-    
+
     @Override
     public String getOutputId() {
         return "GTOrePluginVein";
     }
-    
+
     @Override
     public String getRecipeName() {
         return I18n.format("gtnop.gui.veinStat.name");
     }
-    
+
 }
